@@ -1,0 +1,131 @@
+class Person
+    int floorFrom               // start from 0
+    int floorTo
+    bool waiting                // waiting for elevator; can be idle
+    float arrivalTime
+
+    void call()                 // elevator is called
+        if from floor0: 
+            100 people per min = 1 person / 6 sec = average 6 sec arrivalTime
+        else : 
+            5 people per min = 1 person / 12 sec = average 12 sec arrivalTime
+        
+        arrivalTime
+        Elevator.fetch(this);
+
+
+
+class Elevator 
+    int currentFloor            // 6 floors, 0-5
+    list people
+
+    final double timeMove = 4   // time to get from floor to floor
+    final double timeOn = 3     // time for people to get on the elevator
+    final double timeOff = 3    // time for people to get off the elevator
+
+    static void fetch(person)   // closest elevator picks person(s) up
+        this = minDifference(elevators)
+
+        timeMove
+        this.currentFloor = person.floorFrom
+
+        timeOn
+        elevatorX.add(person)
+
+        deliver();
+
+    void deliver()              // delivers people to desired floor
+        timeMove
+        this.currentFloor = person.floorTo
+
+        timeOff
+        elevatorThis.remove(person)
+
+    void dispatch 
+        // function used to dispatch the nearest idle elevator to floor requested
+        if (distance1 > dist2 && dist3 && dist4)
+            return elevator
+        
+
+
+Controller 
+    int statistics[];
+    let flr = 0;
+
+    while (!delayed_list.isEmpty()) { // clock.update();
+        goToFloor(flr);
+        clock.update();
+        statistics[i] = clock.time();
+    } // should be in function in elevator class
+
+    while (elevator.isIdle()) {
+        // while elevator is idle
+        // do nothing
+        // out of 4 elevators, the closest one takes the request
+        // need to be efficient and not send an elevator to a floor where another is closer,
+        // so leave it idle for another request
+    } // should be in function in elevator class
+
+    main {
+        // uses above loop/logic to maintain delayed_list & dispatch elevator
+        // can generate people?
+        // maintains statistics gathered by the simulation
+    }
+
+
+
+/*
+Events:
+    Person arrived at floorA
+    ElevatorX came to floorA from floorB
+    Person entered ElevatorX
+    ElevatorX dropped Person off at floorC
+
+Stats:
+    How long it takes for each person to get to their desired floor?
+
+Rules:
+    // No person in the building at start of program
+    No "button pressing"
+    10 people every min, about half come from the 0 floor
+
+Unknown:
+    What generates people?
+    People arriving during process?
+        Incorporate timing of things
+    Maybe add floor queue for elevator?
+*/
+
+Notes:
+elevator could have a queue/list or 2D array of people and how many want to get off on a floor.
+need to keep track of the person to track and collect data on how long a person has to wait for the elevator
+(and how long they ride it to their desired floor)
+50% of the people board the elevator on floor 0, and the other 50% board equilikely on all other floors other than zero
+
+fel (future events list) is time ordered
+clock (keeps track of current time)
+a passenger is an event (synonymous) on the list
+
+loop: takes the next event from fel and performs it.
+    - clock is updated
+    - if it is a passenger arrival, generate next passenger arrival
+
+time in system = passenger waiting on floor for elevator + passenger waiting in elevator for floor
+    - generate one arrival (either on floor 0 or other floor)
+
+average time: every 1/10th of a minute, new arrival (on average)
+lambda = 10 : (1/lambda) = 0.1
+
+delayed list = events (not time ordered) that have already happened
+
+once a passenger exits the elevator, you lose track of them.
+so, we track their system time to gather data for the simulation (this is the time spent waiting
+for the elevator and time spent in elevator)(time between button press and arrival) + (time between stepping into elevator and stepping out)
+
+how to end the simulation:
+"end_of_simulation" (collecting data and outputting statistics) is the event at the end of the fel which is the last event on the FEL.
+
+
+
+elevator priority setting:
+    closest elevator that is not already moving in the opposite direction that the person wants to go to
